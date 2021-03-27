@@ -1,29 +1,34 @@
 import os
 import csv
 
-class Study:
-    class Lesson:
-        def __init__(self, name, path, total_page, progress):
-            self.name = name
-            self.path = path
-            self.total_page = total_page
-            self.progress = progress
+class Lesson:
+    def __init__(self, name, path, total_page):
+        self.name = name
+        self.path = path
+        self.total_page = total_page
 
-    __lessons = []
-    __lesson_path = 'data/lessons.csv'
-    def read_file(self):
-        with open(self.__lesson_path) as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter = ',')
-            cnt = 0
-            for row in csv_reader:
-                if cnt != 0:
-                    self.__lessons.append(self.Lesson(row[0], row[1], row[2], row[3]))
-                cnt += 1
+class User:
+    def __init__(self, name, age, password, admin):
+        self.name = name
+        self.age = age
+        self.password = password
+        self.admin = admin
 
-    def print_file(self):
-        for lesson in self.__lessons:
-            print(lesson.name, lesson.path, lesson.total_page, lesson.progress)
+def read_file(file_path):
+    res = []
+    with open(file_path) as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter = ',')
+        cnt = 0
+        for row in csv_reader:
+            if cnt != 0:
+                if len(row) == 4:
+                    res.append(User(row[0], row[1], row[2], row[3]))
+                elif len(row) == 3:
+                    res.append(Lesson(row[0], row[1], row[2]))
+            cnt += 1
+    return res
 
-study = Study()
-study.read_file()
-study.print_file()
+lesson_path = 'data/lessons.csv'
+lessons = read_file(lesson_path)
+for lesson in lessons:
+    print(lesson.name, lesson.path, lesson.total_page)

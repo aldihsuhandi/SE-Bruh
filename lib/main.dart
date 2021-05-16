@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 void main() => runApp(MaterialApp(
     home: Home(),
@@ -8,39 +9,66 @@ class Home extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         return Scaffold(
+            backgroundColor: HexColor("#eceff4"),
             appBar: AppBar(
-                title: Text("Homapage"),
+                title: Text("Homepage"),
+                backgroundColor: HexColor("#2e3440"),
             ),
             body: Column(
                 children: [
                     Expanded(
-                        child: Center(
-                            child: Column(
-                                children: [
-                                    Container(
-                                        margin: EdgeInsets.all(20),
-                                        padding: EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(100),
-                                            border: Border.all(width:2, color: Colors.grey)
-                                        ),
-                                        child: Icon(
-                                            Icons.person,
-                                            color: Colors.grey,
-                                            size: 100.0,
-                                        ),
+                        child: Column(
+                            children: [
+                                Container(
+                                    padding: EdgeInsets.only(
+                                        left: 30
                                     ),
-                                    Text(
-                                        "NAME",
+                                    child: Row(
+                                        children: [
+                                            Container(
+                                                padding: EdgeInsets.all(10),
+                                                margin: EdgeInsets.all(20),
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(100),
+                                                    border: Border.all(
+                                                        width: 2,
+                                                        color: HexColor("#2e3440"),
+                                                    ),
+                                                ),
+                                                child: Icon(
+                                                    Icons.person,
+                                                    color: HexColor("#2e3440"),
+                                                    size: 100,
+                                                )
+                                            ),
+                                            Container(
+                                                child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                        Text(
+                                                            "Name",
+                                                            style: TextStyle(
+                                                                fontFamily: 'Roboto',
+                                                                fontSize: 20,
+                                                            ),
+                                                        ),
+                                                        SizedBox(
+                                                            height: 5,
+                                                        ),
+                                                        Text(
+                                                            "NIS",
+                                                            style: TextStyle(
+                                                                fontFamily: 'Roboto',
+                                                                fontSize: 15,
+                                                            ),
+                                                        ),
+                                                    ],
+                                                ),
+                                            ),
+                                        ],
                                     ),
-                                    Padding(
-                                        padding: const EdgeInsets.only(bottom: 10.0),
-                                    ),
-                                    Text(
-                                        "NIS",
-                                    ),
-                                ]
-                            ),
+                                ),
+                            ],
                         ),
                     ),
                 ],
@@ -61,7 +89,7 @@ class NavMenu extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 children: <Widget> [
                     Material(
-                        color: Colors.blue,
+                        color: HexColor("#2e3440"),
                         child: InkWell(
                             onTap: () {
                                 print("profile clicked");
@@ -73,15 +101,16 @@ class NavMenu extends StatelessWidget {
                                             margin: EdgeInsets.all(20),
                                             padding: EdgeInsets.all(10),
                                             decoration: BoxDecoration(
+                                                color: HexColor("#eceff4"),
                                                 borderRadius: BorderRadius.circular(100),
                                                 border: Border.all(
                                                     width: 2,
-                                                    color: Colors.black
+                                                    color: HexColor("#eceff4"),
                                                 ),
                                             ),
                                             child: Icon(
                                                 Icons.person,
-                                                color: Colors.black,
+                                                color: HexColor("#2e3440"),
                                                 size: 50.0,
                                             ),
                                         ),

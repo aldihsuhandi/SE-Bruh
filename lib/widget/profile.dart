@@ -3,7 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 // import other file
-import '../src/drawer.dart';
+import 'drawer.dart';
 
 class Profile extends StatelessWidget {
     @override
@@ -100,35 +100,37 @@ class _GradeComboBox extends State<GradeComboBox> {
     String val = "Subject 1";
     @override
     Widget build(BuildContext context) {
-        return Column(
-            children: [
-                DropdownButton<String>(
-                    value: val,
-                    isExpanded: true,
-                    icon: Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    style: TextStyle(
-                        color: HexColor("#2e3440"),
+        return SingleChildScrollView(
+            child: Column(
+                children: [
+                    DropdownButton<String>(
+                        value: val,
+                        isExpanded: true,
+                        icon: Icon(Icons.arrow_downward),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: TextStyle(
+                            color: HexColor("#2e3440"),
+                        ),
+                        underline: Container(
+                            height: 2,
+                            color: HexColor("#2e3440"),
+                        ),
+                        onChanged: (String? newVal) {
+                            setState((){
+                                val = newVal!;
+                            });
+                        },
+                        items: <String>["Subject 1", "Subject 2", "Subject 3"].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                            );
+                        }).toList(),
                     ),
-                    underline: Container(
-                        height: 2,
-                        color: HexColor("#2e3440"),
-                    ),
-                    onChanged: (String? newVal) {
-                        setState((){
-                            val = newVal!;
-                        });
-                    },
-                    items: <String>["Subject 1", "Subject 2", "Subject 3"].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                        );
-                    }).toList(),
-                ),
-                GradeGraph(val),
-            ],
+                    GradeGraph(val),
+                ],
+            ),
         );
     }
 }

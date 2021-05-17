@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 // include other dart file
-import '../page/profile.dart';
-import '../page/subject.dart';
+import 'profile.dart';
+import 'subject.dart';
 
 class NavMenu extends StatelessWidget {
     @override
@@ -114,7 +114,7 @@ class NavMenu extends StatelessWidget {
                                 ),
                                 ExpansionTile(
                                     title: Text(
-                                        "Subject 2",
+                                        "Placeholder text",
                                         style: TextStyle(
                                             fontSize: 18,
                                             color: HexColor("#eceff4"),
@@ -124,7 +124,7 @@ class NavMenu extends StatelessWidget {
                                         ListTile(
                                             title: Center(
                                                 child: Text(
-                                                    "Session 1",
+                                                    "Placeholder text",
                                                     style: TextStyle(
                                                         fontSize: 15,
                                                         color: HexColor("#eceff4"),
@@ -138,7 +138,7 @@ class NavMenu extends StatelessWidget {
                                         ListTile(
                                             title: Center(
                                                 child: Text(
-                                                    "Session 2",
+                                                    "Placeholder text",
                                                     style: TextStyle(
                                                         fontSize: 15,
                                                         color: HexColor("#eceff4"),
@@ -159,3 +159,5 @@ class NavMenu extends StatelessWidget {
         );
     }
 }
+
+class SubjectList extends 

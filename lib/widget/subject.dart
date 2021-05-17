@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 // import other file
-import '../src/drawer.dart';
+import 'drawer.dart';
 
 class Sessionpage extends StatelessWidget {
     @override

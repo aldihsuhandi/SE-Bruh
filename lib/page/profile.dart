@@ -14,7 +14,7 @@ class Profile extends StatelessWidget {
                 title: Text("Profile page"),
                 backgroundColor: HexColor("#2e3440"),
             ),
-            body: Column(
+            body: ListView(
                 children: [
                     Center(
                         child: Container(
@@ -56,6 +56,23 @@ class Profile extends StatelessWidget {
                             ],
                         )
                     ),
+                    SizedBox(height: 20),
+                    Container(
+                        margin: EdgeInsets.only(
+                            left: 20,
+                            right: 20
+                        ),
+                        child: Text(
+                            "Grade",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w800, 
+                                fontFamily: 'Roboto',
+                                fontSize: 20,
+                                color: HexColor("#2e3440"),
+                            ),
+                            textAlign: TextAlign.left,
+                        ),
+                    ),
                     Container(
                         margin: EdgeInsets.only(
                             left: 20,
@@ -79,35 +96,49 @@ class GradeComboBox extends StatefulWidget {
     State<GradeComboBox> createState() => _GradeComboBox();
 }
 
-class _GradeComboBox extends State<GradeComboBox> 
-{
+class _GradeComboBox extends State<GradeComboBox> {
     String val = "Subject 1";
     @override
     Widget build(BuildContext context) {
-        return DropdownButton<String>(
-            value: val,
-            isExpanded: true,
-            icon: Icon(Icons.arrow_downward),
-            iconSize: 24,
-            elevation: 16,
-            style: TextStyle(
-                color: HexColor("#2e3440"),
-            ),
-            underline: Container(
-                height: 2,
-                color: HexColor("#2e3440"),
-            ),
-            onChanged: (String? newVal) {
-                setState((){
-                    val = newVal!;
-                });
-            },
-            items: <String>["Subject 1", "Subject 2", "Subject 3"].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                );
-            }).toList(),
+        return Column(
+            children: [
+                DropdownButton<String>(
+                    value: val,
+                    isExpanded: true,
+                    icon: Icon(Icons.arrow_downward),
+                    iconSize: 24,
+                    elevation: 16,
+                    style: TextStyle(
+                        color: HexColor("#2e3440"),
+                    ),
+                    underline: Container(
+                        height: 2,
+                        color: HexColor("#2e3440"),
+                    ),
+                    onChanged: (String? newVal) {
+                        setState((){
+                            val = newVal!;
+                        });
+                    },
+                    items: <String>["Subject 1", "Subject 2", "Subject 3"].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                        );
+                    }).toList(),
+                ),
+                GradeGraph(val),
+            ],
         );
     }
+}
+
+class GradeGraph extends StatelessWidget {
+    final String subject;
+    GradeGraph(this.subject);
+
+    @override
+      Widget build(BuildContext context) {
+          return Text(subject);
+      }
 }

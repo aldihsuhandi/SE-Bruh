@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+// include other dart file
+import '../page/profile.dart';
+import '../page/subject.dart';
+
 class NavMenu extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
@@ -32,7 +36,11 @@ class NavMenu extends StatelessWidget {
                             color: Colors.white.withOpacity(0),
                             child: InkWell(
                                 onTap: (){
-                                    print("Profile pressed");
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => Profile()),
+                                    );
                                 },
                                 child: Icon(
                                     Icons.person,
@@ -82,6 +90,10 @@ class NavMenu extends StatelessWidget {
                                             ),
                                             onTap: () {
                                                 Navigator.pop(context);
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(builder: (context) => Sessionpage()),
+                                                );
                                             },
                                         ),
                                         ListTile(

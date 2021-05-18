@@ -89,7 +89,7 @@ class Profile extends StatelessWidget
             ),
             drawer: Container(
                 width: 200,
-                child: NavMenu(),
+                child: NavMenu(user),
             ),
         );
     }
@@ -113,7 +113,8 @@ class _GradeComboBox extends State<GradeComboBox>
     List<String> subjectList = [];
 
     @override
-      void initState() {
+    void initState() 
+    {
         super.initState();
         subjectList = user.getAllSubjectName();
         if(subjectList.isEmpty == true)
@@ -124,12 +125,11 @@ class _GradeComboBox extends State<GradeComboBox>
         {
             val = subjectList[0];
         }
-      }
+    }
 
     @override
     Widget build(BuildContext context) 
     {
-
         return SingleChildScrollView(
             child: Column(
                 children: [
@@ -141,6 +141,8 @@ class _GradeComboBox extends State<GradeComboBox>
                         elevation: 16,
                         style: TextStyle(
                             color: HexColor("#2e3440"),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
                         ),
                         underline: Container(
                             height: 2,
@@ -157,6 +159,9 @@ class _GradeComboBox extends State<GradeComboBox>
                                 child: Text(value),
                             );
                         }).toList(),
+                    ),
+                    SizedBox(
+                        height: 30,
                     ),
                     GradeGraph(val, user),
                 ],

@@ -24,7 +24,7 @@ class GradeGraph extends StatelessWidget
                 new ScoreChartModel(
                     sc.getScoreList()[i], 
                     i + 1, 
-                    HexColor("#2e3440")
+                    HexColor("#eceff4")
                 )
             );
         }
@@ -54,12 +54,45 @@ class GradeGraph extends StatelessWidget
         var chart = charts.LineChart(
             series,
             animate: true,
+            domainAxis: new charts.NumericAxisSpec(
+                tickProviderSpec: new charts.BasicNumericTickProviderSpec(
+                    zeroBound: false,
+                ),
+                renderSpec: new charts.SmallTickRendererSpec(
+                    labelStyle: new charts.TextStyleSpec(
+                        fontSize: 14,
+                        color: new charts.Color(
+                            r: HexColor("#eceff4").red,
+                            g: HexColor("#eceff4").green,
+                            b: HexColor("#eceff4").blue,
+                            a: HexColor("#eceff4").alpha,
+                        ),
+                    ),
+                ),
+            ),
+            primaryMeasureAxis: charts.NumericAxisSpec(
+                tickProviderSpec: new charts.BasicNumericTickProviderSpec(
+                    zeroBound: true,
+                ),
+                renderSpec: new charts.SmallTickRendererSpec(
+                    labelStyle: new charts.TextStyleSpec(
+                        fontSize: 14,
+                        color: new charts.Color(
+                            r: HexColor("#eceff4").red,
+                            g: HexColor("#eceff4").green,
+                            b: HexColor("#eceff4").blue,
+                            a: HexColor("#eceff4").alpha,
+                        ),
+                    ),
+                ),
+            ),
         );
 
-        var chartWidget = Padding(
+        var chartWidget = Container(
+            color: HexColor("#2e3440"),
             padding: EdgeInsets.all(20),
             child: SizedBox(
-                height: 500,
+                height: MediaQuery.of(context).size.height * 0.5,
                 child: chart
             ),
         );

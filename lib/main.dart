@@ -15,6 +15,7 @@ void main()
     user.addScore("Physics", 70);
     user.addScore("Physics", 65);
     user.addScore("Physics", 90);
-    user.addScore("Physics", 0);
+    user.addScore("Physics", 100);
+
     runApp(MaterialApp(home: Profile(user)));
 }

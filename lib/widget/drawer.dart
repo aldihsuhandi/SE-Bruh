@@ -4,8 +4,11 @@ import 'package:hexcolor/hexcolor.dart';
 // include other dart file
 import 'profile.dart';
 import 'subject.dart';
+import '../src/user.dart';
 
 class NavMenu extends StatelessWidget {
+    final User user;
+    NavMenu(this.user);
     @override
     Widget build(BuildContext context) {
         return Drawer(
@@ -37,10 +40,10 @@ class NavMenu extends StatelessWidget {
                             child: InkWell(
                                 onTap: (){
                                     Navigator.pop(context);
-                                    // Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(builder: (context) => Profile()),
-                                    // );
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => Profile(user)),
+                                    );
                                 },
                                 child: Icon(
                                     Icons.person,
@@ -92,7 +95,7 @@ class NavMenu extends StatelessWidget {
                                                 Navigator.pop(context);
                                                 Navigator.push(
                                                     context,
-                                                    MaterialPageRoute(builder: (context) => Sessionpage()),
+                                                    MaterialPageRoute(builder: (context) => Sessionpage(user)),
                                                 );
                                             },
                                         ),

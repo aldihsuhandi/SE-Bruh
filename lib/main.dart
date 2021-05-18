@@ -11,6 +11,8 @@ void main()
     user.addScore("Math", 81);
     user.addScore("Math", 97);
     user.addScore("Math", 79);
+    user.addScore("Math", 59);
+    user.addScore("Math", 100);
     user.addScore("Physics", 50);
     user.addScore("Physics", 70);
     user.addScore("Physics", 65);

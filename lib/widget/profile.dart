@@ -87,10 +87,7 @@ class Profile extends StatelessWidget
                     ),
                 ],
             ),
-            drawer: Container(
-                width: 200,
-                child: NavMenu(user),
-            ),
+            drawer: NavMenu(user, "profile"),
         );
     }
 }

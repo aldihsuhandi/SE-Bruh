@@ -18,10 +18,7 @@ class Sessionpage extends StatelessWidget {
             ),
             body: ListView(
             ),
-            drawer: Container(
-                width: 200,
-                child: NavMenu(user),
-            ),
+            drawer: NavMenu(user, "subjectsession"),
         );
     }
 }

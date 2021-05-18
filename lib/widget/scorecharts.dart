@@ -36,7 +36,7 @@ class GradeGraph extends StatelessWidget
         if(subject == "null")
         {
             return Text(
-                "User don't have any score history"
+                user.getName() + " don't have any score history"
             );
         }
 
@@ -92,7 +92,7 @@ class GradeGraph extends StatelessWidget
             color: HexColor("#2e3440"),
             padding: EdgeInsets.all(20),
             child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.5,
+                height: MediaQuery.of(context).size.height * 0.45,
                 child: chart
             ),
         );

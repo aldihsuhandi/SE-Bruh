@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 // import other file
 import 'drawer.dart';
+import '../src/user.dart';
+import '../src/score.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatelessWidget 
+{
+    final User user;
+    Profile(this.user);
     @override
-    Widget build(BuildContext context) {
+    Widget build(BuildContext context) 
+    {
         return Scaffold(
             backgroundColor: HexColor("#eceff4"),
             appBar: AppBar(
@@ -35,7 +40,7 @@ class Profile extends StatelessWidget {
                         child: Column(
                             children: [
                                 Text(
-                                    "NAME",
+                                    user.getName(),
                                     style: TextStyle(
                                         fontWeight: FontWeight.w900,
                                         fontFamily: 'Roboto',
@@ -45,7 +50,7 @@ class Profile extends StatelessWidget {
                                 ),
                                 SizedBox(height: 12),
                                 Text(
-                                    "NIS",
+                                    user.getNis(),
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontFamily: 'Roboto',
@@ -78,7 +83,7 @@ class Profile extends StatelessWidget {
                             left: 20,
                             right: 20
                         ),
-                        child: GradeComboBox()
+                        child: GradeComboBox(user)
                     ),
                 ],
             ),
@@ -90,16 +95,36 @@ class Profile extends StatelessWidget {
     }
 }
 
-class GradeComboBox extends StatefulWidget {
-    const GradeComboBox({Key? key}) : super(key: key);
+class GradeComboBox extends StatefulWidget 
+{
+    final User user;
+    GradeComboBox(this.user);
+
+    // const GradeComboBox({Key? key}) : super(key: key);
     @override
-    State<GradeComboBox> createState() => _GradeComboBox();
+    State<GradeComboBox> createState() => _GradeComboBox(user);
 }
 
-class _GradeComboBox extends State<GradeComboBox> {
-    String val = "Subject 1";
+class _GradeComboBox extends State<GradeComboBox> 
+{
+    final User user;
+    _GradeComboBox(this.user);
+    String val = "";
+    List<String> subjectList = [];
+
     @override
-    Widget build(BuildContext context) {
+    Widget build(BuildContext context) 
+    {
+        subjectList = user.getAllSubjectName();
+        if(subjectList.isEmpty == true)
+        {
+            val = "null";
+        }
+        else
+        {
+            val = subjectList[0];
+        }
+
         return SingleChildScrollView(
             child: Column(
                 children: [
@@ -121,26 +146,29 @@ class _GradeComboBox extends State<GradeComboBox> {
                                 val = newVal!;
                             });
                         },
-                        items: <String>["Subject 1", "Subject 2", "Subject 3"].map<DropdownMenuItem<String>>((String value) {
+                        items: subjectList.map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(value),
                             );
                         }).toList(),
                     ),
-                    GradeGraph(val),
+                    GradeGraph(val, user),
                 ],
             ),
         );
     }
 }
 
-class GradeGraph extends StatelessWidget {
+class GradeGraph extends StatelessWidget 
+{
+    final User user;
     final String subject;
-    GradeGraph(this.subject);
+    GradeGraph(this.subject, this.user);
 
     @override
-      Widget build(BuildContext context) {
+      Widget build(BuildContext context) 
+      {
           return Text(subject);
       }
 }

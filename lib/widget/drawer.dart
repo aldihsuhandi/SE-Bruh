@@ -37,10 +37,10 @@ class NavMenu extends StatelessWidget {
                             child: InkWell(
                                 onTap: (){
                                     Navigator.pop(context);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => Profile()),
-                                    );
+                                    // Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(builder: (context) => Profile()),
+                                    // );
                                 },
                                 child: Icon(
                                     Icons.person,
@@ -159,5 +159,3 @@ class NavMenu extends StatelessWidget {
         );
     }
 }
-
-class SubjectList extends 

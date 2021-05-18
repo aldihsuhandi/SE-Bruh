@@ -3,10 +3,7 @@ class Score
     String _subjectName = "";
     List<int> _scoreList = [];
 
-    Score(String subjectName)
-    {
-        _subjectName = subjectName;
-    }
+    Score(this._subjectName);
 
     void addScore(int sc)
     {

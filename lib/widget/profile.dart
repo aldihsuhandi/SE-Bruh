@@ -3,8 +3,8 @@ import 'package:hexcolor/hexcolor.dart';
 
 // import other file
 import 'drawer.dart';
+import 'scorecharts.dart';
 import '../src/user.dart';
-import '../src/score.dart';
 
 class Profile extends StatelessWidget 
 {
@@ -113,8 +113,8 @@ class _GradeComboBox extends State<GradeComboBox>
     List<String> subjectList = [];
 
     @override
-    Widget build(BuildContext context) 
-    {
+      void initState() {
+        super.initState();
         subjectList = user.getAllSubjectName();
         if(subjectList.isEmpty == true)
         {
@@ -124,6 +124,11 @@ class _GradeComboBox extends State<GradeComboBox>
         {
             val = subjectList[0];
         }
+      }
+
+    @override
+    Widget build(BuildContext context) 
+    {
 
         return SingleChildScrollView(
             child: Column(
@@ -158,17 +163,4 @@ class _GradeComboBox extends State<GradeComboBox>
             ),
         );
     }
-}
-
-class GradeGraph extends StatelessWidget 
-{
-    final User user;
-    final String subject;
-    GradeGraph(this.subject, this.user);
-
-    @override
-      Widget build(BuildContext context) 
-      {
-          return Text(subject);
-      }
 }

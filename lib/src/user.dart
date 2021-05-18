@@ -7,11 +7,7 @@ class User
     String _nis = "";
     List<Score> scores = [];
 
-    User(String name, String nis)
-    {
-        _name = name;
-        _nis = nis;
-    }
+    User(this._name, this._nis);
 
     void setName(String name)
     {

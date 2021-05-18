@@ -22,7 +22,7 @@ analyzer:
   - non-nullable
 
 environment:
-  sdk: ">=2.13.0-68.0.dev <3.0.0"
+  sdk: ">=2.12.4 <3.0.0"
 
 dependencies:
   flutter:

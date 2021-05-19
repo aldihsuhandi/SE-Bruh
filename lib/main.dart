@@ -18,6 +18,7 @@ void main()
     user.addScore("Physics", 65);
     user.addScore("Physics", 90);
     user.addScore("Physics", 100);
+    // ^ nanti diganti jadi read file function
 
     runApp(MaterialApp(home: Profile(user)));
 }

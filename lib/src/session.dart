@@ -16,6 +16,33 @@ class Session
     }
 }
 
+class Learning extends Session
+{
+    String _videosPath;
+    String _textPath;
+    Learning(String sessionName, this._videosPath, this._textPath) : super(sessionName);
+    
+    void setVideosPath(String videosPath)
+    {
+        _videosPath = videosPath;
+    }
+
+    String getVideosPath()
+    {
+        return _videosPath;
+    }
+
+    void setTextPath(String textPath)
+    {
+        _textPath = textPath;
+    }
+
+    String getTextPath()
+    {
+        return _textPath;
+    }
+}
+
 class Quiz extends Session
 {
     List<Question> _questions = [];

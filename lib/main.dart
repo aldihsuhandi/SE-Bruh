@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 // import other file
 import 'widget/profile.dart';
 import 'src/user.dart';
+import 'src/subject.dart';
 
 void main()
 {
+    // user temporary file
     User user = new User("Aldih suhandi", "2301862632");
     user.addScore("Math", 80);
     user.addScore("Math", 81);
@@ -18,7 +20,10 @@ void main()
     user.addScore("Physics", 65);
     user.addScore("Physics", 90);
     user.addScore("Physics", 100);
-    // ^ nanti diganti jadi read file function
+
+    // subject temporary file
+    // List<Subject> subjects = [];
+    // subjects.add(new Subject("Temp Subject"));
 
     runApp(MaterialApp(home: Profile(user)));
 }

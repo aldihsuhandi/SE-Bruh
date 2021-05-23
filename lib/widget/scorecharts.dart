@@ -1,116 +1,105 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:fl_chart/fl_chart.dart';
 
 // import other dart fike
 import '../src/user.dart';
 import '../src/score.dart';
 
-class GradeGraph extends StatelessWidget 
+class GradeGraph extends StatelessWidget
 {
+    final List<Color> graphColors = [
+        const Color(0xffeceff4)
+    ];
+    final List<Color> belowGraphColor = [
+        const Color(0xffabb2bf)
+    ];
     final User user;
     final String subject;
-    final List<ScoreChartModel> data = [];
     GradeGraph(this.subject, this.user);
 
-    void init()
-    {
+    @override
+    Widget build(BuildContext context) {
+        if(subject  == "null")
+        {
+            return Container(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                    user.getName() + " don't have any score history"
+                ),
+            );
+        }
+
+        List<FlSpot> data = [];
         Score sc = user.getScores().firstWhere(
             (element) => element.getSubjectName() == subject
         );
         int len = sc.getScoreList().length;
-        for(int i = 0;i < len;++i){
-            data.add(
-                new ScoreChartModel(
-                    sc.getScoreList()[i], 
-                    i + 1, 
-                    HexColor("#eceff4")
+
+        for(int i = 0;i < len;++i) {
+            int x = i;
+            int y = sc.getScoreList()[i];
+            data.add(new FlSpot(x.toDouble(), y.toDouble()));
+        }
+
+        return Container(
+            margin: EdgeInsets.only(
+                left: 20,
+                right: 20,
+            ),
+            height: MediaQuery.of(context).size.height * 0.45,
+            decoration: BoxDecoration(
+                color: HexColor("#2e3440")
+            ),
+            child: Container(
+                margin: EdgeInsets.only(
+                    top: 20,
+                    right: 20,
+                    bottom: 20,
+                ),
+                child: LineChart(
+                    LineChartData(
+                        minX: 0,
+                        maxX: len.toDouble() - 1,
+                        minY: 0,
+                        maxY: 100,
+                        titlesData: FlTitlesData(
+                            show: true,
+                            bottomTitles: SideTitles(
+                                showTitles: false
+                            ),
+                            leftTitles: SideTitles(
+                                showTitles: true,
+                                getTextStyles: (value) => const TextStyle(
+                                    color: Color(0xffeceff4),
+                                    fontSize: 10,
+                                )
+                            ),
+                        ),
+                        gridData: FlGridData(
+                            show: false
+                        ),
+                        borderData: FlBorderData(
+                            show: true,
+                            border: Border.all(
+                                color: HexColor("#eceff4")
+                            ),
+                        ),
+                        lineBarsData: [
+                            LineChartBarData(
+                                isCurved: true,
+                                colors: graphColors,
+                                barWidth: 3,
+                                belowBarData: BarAreaData(
+                                    show: true,
+                                    colors: belowGraphColor.map((color) => color.withOpacity(0.3)).toList()
+                                ),
+                                spots: data
+                            )
+                        ]
+                    ),
                 )
-            );
-        }
-    }
-
-    @override
-    Widget build(BuildContext context) 
-    {
-        if(subject == "null")
-        {
-            return Text(
-                user.getName() + " don't have any score history"
-            );
-        }
-
-        init();
-        var series = [
-            new charts.Series(
-                id: "scores",
-                data: data,
-                domainFn: (ScoreChartModel scoreData, _) => scoreData.quiz,
-                measureFn: (ScoreChartModel scoreData, _) => scoreData.score,
-                colorFn: (ScoreChartModel scoreData, _) => scoreData.color,
-            ),
-        ];
-
-        var chart = charts.LineChart(
-            series,
-            animate: true,
-            domainAxis: new charts.NumericAxisSpec(
-                tickProviderSpec: new charts.BasicNumericTickProviderSpec(
-                    zeroBound: false,
-                ),
-                renderSpec: new charts.SmallTickRendererSpec(
-                    labelStyle: new charts.TextStyleSpec(
-                        fontSize: 14,
-                        color: new charts.Color(
-                            r: HexColor("#eceff4").red,
-                            g: HexColor("#eceff4").green,
-                            b: HexColor("#eceff4").blue,
-                            a: HexColor("#eceff4").alpha,
-                        ),
-                    ),
-                ),
-            ),
-            primaryMeasureAxis: charts.NumericAxisSpec(
-                tickProviderSpec: new charts.BasicNumericTickProviderSpec(
-                    zeroBound: true,
-                ),
-                renderSpec: new charts.SmallTickRendererSpec(
-                    labelStyle: new charts.TextStyleSpec(
-                        fontSize: 14,
-                        color: new charts.Color(
-                            r: HexColor("#eceff4").red,
-                            g: HexColor("#eceff4").green,
-                            b: HexColor("#eceff4").blue,
-                            a: HexColor("#eceff4").alpha,
-                        ),
-                    ),
-                ),
             ),
         );
-
-        var chartWidget = Container(
-            color: HexColor("#2e3440"),
-            padding: EdgeInsets.all(20),
-            child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.45,
-                child: chart
-            ),
-        );
-
-        return chartWidget;
     }
-}
-
-class ScoreChartModel
-{
-    final int score;
-    final int quiz;
-    final charts.Color color;
-    ScoreChartModel(this.score, this.quiz, Color c)
-    : this.color = charts.Color(
-        r: c.red,
-        g: c.green,
-        b: c.blue,
-        a: c.alpha
-    );
 }

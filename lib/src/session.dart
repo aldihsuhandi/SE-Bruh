@@ -19,8 +19,8 @@ class Session
 class Learning extends Session
 {
     String _videosPath;
-    String _textPath;
-    Learning(String sessionName, this._videosPath, this._textPath) : super(sessionName);
+    String _text;
+    Learning(String sessionName, this._videosPath, this._text) : super(sessionName);
     
     void setVideosPath(String videosPath)
     {
@@ -32,14 +32,14 @@ class Learning extends Session
         return _videosPath;
     }
 
-    void setTextPath(String textPath)
+    void setText(String text)
     {
-        _textPath = textPath;
+        _text = text;
     }
 
-    String getTextPath()
+    String getText()
     {
-        return _textPath;
+        return _text;
     }
 }
 

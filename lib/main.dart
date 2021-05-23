@@ -22,8 +22,11 @@ void main()
     user.addScore("Physics", 100);
 
     // subject temporary file
-    // List<Subject> subjects = [];
-    // subjects.add(new Subject("Temp Subject"));
+    List<Subject> subjects = [];
+    subjects.add(new Subject("SU001", "Subject 1"));
+    subjects.add(new Subject("SU002", "Subject 2"));
+    subjects.add(new Subject("SU003", "Subject 3"));
+    subjects.add(new Subject("SU004", "Subject 4"));
 
-    runApp(MaterialApp(home: Profile(user)));
+    runApp(MaterialApp(home: Profile(user, subjects)));
 }

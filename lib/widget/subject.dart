@@ -4,11 +4,13 @@ import 'package:hexcolor/hexcolor.dart';
 // import other file
 import 'drawer.dart';
 import '../src/user.dart';
+import '../src/subject.dart';
 
 class Sessionpage extends StatelessWidget {
     @override
     final User user;
-    Sessionpage(this.user);
+    final List<Subject> subjects;
+    Sessionpage(this.user, this.subjects);
     Widget build(BuildContext context) {
         return Scaffold(
             backgroundColor: HexColor("#eceff4"),
@@ -18,7 +20,7 @@ class Sessionpage extends StatelessWidget {
             ),
             body: ListView(
             ),
-            drawer: NavMenu(user, "subjectsession"),
+            drawer: NavMenu(user, subjects, "subjectsession"),
         );
     }
 }

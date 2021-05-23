@@ -5,11 +5,13 @@ import 'package:hexcolor/hexcolor.dart';
 import 'drawer.dart';
 import 'scorecharts.dart';
 import '../src/user.dart';
+import '../src/subject.dart';
 
 class Profile extends StatelessWidget 
 {
     final User user;
-    Profile(this.user);
+    final List<Subject> subjects;
+    Profile(this.user, this.subjects);
     @override
     Widget build(BuildContext context) 
     {
@@ -87,7 +89,7 @@ class Profile extends StatelessWidget
                     ),
                 ],
             ),
-            drawer: NavMenu(user, "profile"),
+            drawer: NavMenu(user, subjects, "profile"),
         );
     }
 }

@@ -4,12 +4,14 @@ import 'package:hexcolor/hexcolor.dart';
 // include other dart file
 import 'subject.dart';
 import '../src/user.dart';
+import '../src/subject.dart';
 
 class NavMenu extends StatelessWidget 
 {
     final User user;
+    final List<Subject> subjects;
     final String currScreen;
-    NavMenu(this.user, this.currScreen);
+    NavMenu(this.user, this.subjects, this.currScreen);
     @override
     Widget build(BuildContext context) 
     {
@@ -22,7 +24,7 @@ class NavMenu extends StatelessWidget
                     ),
                     children: <Widget> [
                         ProfileButton(user, currScreen),
-                        SubjectList(user),
+                        SubjectList(user, subjects),
                     ]
                 ),
             ),
@@ -82,10 +84,27 @@ class ProfileButton extends StatelessWidget
 class SubjectList extends StatelessWidget
 {
     final User user;
-    SubjectList(this.user);
+    final List<Subject> subjects;
+    SubjectList(this.user, this.subjects);
     @override
     Widget build(BuildContext context)
     {
+        List<Widget> subjectTile = [];
+
+        for(Subject subject in subjects) {
+            ExpansionTile temp = new ExpansionTile(
+                title: Text(
+                    subject.getSubjectName(),
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: HexColor("#eceff4")
+                    ),
+                ),
+            );
+
+            subjectTile.add(temp);
+        }
+
         return Container(
             margin: EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -104,51 +123,7 @@ class SubjectList extends StatelessWidget
                 borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             child: Column(
-                children: [
-                    ExpansionTile(
-                        title: Text(
-                            "Subject 1",
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: HexColor("#eceff4"),
-                            ),
-                        ),
-                        children: <Widget>[
-                            ListTile(
-                                title: Center(
-                                    child: Text(
-                                        "Session 1",
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            color: HexColor("#eceff4"),
-                                        ),
-                                    ),
-                                ),
-                                onTap: () {
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => Sessionpage(user)),
-                                    );
-                                },
-                            ),
-                            ListTile(
-                                title: Center(
-                                    child: Text(
-                                        "Session 2",
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            color: HexColor("#eceff4"),
-                                        ),
-                                    ),
-                                ),
-                                onTap: () {
-                                    Navigator.pop(context);
-                                },
-                            )
-                        ],
-                    ),
-                ],
+                children: subjectTile
             ),
         );
     }

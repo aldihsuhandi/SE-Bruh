@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 // import other file
 import 'widget/profile.dart';
@@ -24,9 +25,18 @@ void main()
     // subject temporary file
     List<Subject> subjects = [];
     subjects.add(new Subject("SU001", "Subject 1"));
-    subjects.add(new Subject("SU002", "Subject 2"));
-    subjects.add(new Subject("SU003", "Subject 3"));
-    subjects.add(new Subject("SU004", "Subject 4"));
+    subjects[0].addLearning("Session 1", "Test path", "Lorem ipsum");
+    subjects.add(new Subject("Placeholder", "Placeholder"));
+    subjects.add(new Subject("Placeholder", "Placeholder"));
+    subjects.add(new Subject("Placeholder", "Placeholder"));
 
-    runApp(MaterialApp(home: Profile(user, subjects)));
+    runApp(
+        MaterialApp(
+            theme: ThemeData(
+                fontFamily: "Roboto",
+                canvasColor: HexColor("#eceff4"),
+            ),
+            home: Profile(user, subjects)
+        )
+    );
 }

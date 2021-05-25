@@ -31,4 +31,18 @@ class Subject
     {
         return _sessions;
     }
+
+    void addLearning(String sessionName, String videosPath, String text)
+    {
+        _sessions.add(
+            new Learning(sessionName, videosPath, text)
+        );
+    }
+
+    void addQuiz(String sessionName)
+    {
+        _sessions.add(
+            new Quiz(sessionName)
+        );
+    }
 }

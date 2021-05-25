@@ -63,6 +63,11 @@ class GradeGraph extends StatelessWidget
                         maxX: len.toDouble() - 1,
                         minY: 0,
                         maxY: 100,
+                        lineTouchData: LineTouchData(
+                            touchTooltipData: LineTouchTooltipData(
+                                tooltipBgColor: HexColor("#2e3440")
+                            ),
+                        ),
                         titlesData: FlTitlesData(
                             show: true,
                             bottomTitles: SideTitles(
@@ -73,7 +78,20 @@ class GradeGraph extends StatelessWidget
                                 getTextStyles: (value) => const TextStyle(
                                     color: Color(0xffeceff4),
                                     fontSize: 10,
-                                )
+                                ),
+                                getTitles: (value) {
+                                    switch(value.toInt()) 
+                                    {
+                                        case 0:
+                                            return '0';
+                                        case 50:
+                                            return '50';
+                                        case 100:
+                                            return '100';
+                                        default:
+                                            return '';
+                                    }
+                                }
                             ),
                         ),
                         gridData: FlGridData(

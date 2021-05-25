@@ -5,6 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'subject.dart';
 import '../src/user.dart';
 import '../src/subject.dart';
+import '../src/session.dart';
 
 class NavMenu extends StatelessWidget 
 {
@@ -16,7 +17,7 @@ class NavMenu extends StatelessWidget
     Widget build(BuildContext context) 
     {
         return Container(
-            width: 220,
+            width: 250,
             child: Drawer(
                 child: ListView(
                     padding: EdgeInsets.only(
@@ -41,7 +42,7 @@ class ProfileButton extends StatelessWidget
     Widget build(BuildContext context)
     {
         return Container(
-            height: 180,
+            height: 200,
             margin: EdgeInsets.all(10),
             decoration: BoxDecoration(
                 color: HexColor("#2e3440"),
@@ -65,10 +66,6 @@ class ProfileButton extends StatelessWidget
                         Navigator.pop(context);
                         if(currScreen != "profile")
                             Navigator.pop(context);
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(builder: (context) => Profile(user)),
-                        // );
                     },
                     child: Icon(
                         Icons.person,
@@ -92,14 +89,23 @@ class SubjectList extends StatelessWidget
         List<Widget> subjectTile = [];
 
         for(Subject subject in subjects) {
+            List<Widget> childs = [];
+            for(Session session in subject.getSessions()){
+                childs.add(SubjectButton(session));
+            }
+
             ExpansionTile temp = new ExpansionTile(
-                title: Text(
-                    subject.getSubjectName(),
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: HexColor("#eceff4")
+                title: Center(
+                    child: Text(
+                        subject.getSubjectCode() + ' - ' + subject.getSubjectName(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: HexColor("#eceff4"),
+                        ),
                     ),
                 ),
+                children: childs,
             );
 
             subjectTile.add(temp);
@@ -124,6 +130,36 @@ class SubjectList extends StatelessWidget
             ),
             child: Column(
                 children: subjectTile
+            ),
+        );
+    }
+}
+
+class SubjectButton extends StatelessWidget
+{
+    final Session session;
+    SubjectButton(this.session);
+    @override
+    Widget build(BuildContext context)
+    {
+        return Container(
+            height: 35,
+            child: Material(
+                color: HexColor("#434c5e"),
+                child: InkWell(
+                    child: Center(
+                            child: Text(
+                            session.getSessionName(),
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: HexColor("#eceff4")
+                            )
+                        ),
+                    ),
+                    onTap: (){
+                        Navigator.pop(context);
+                    },
+                )
             ),
         );
     }

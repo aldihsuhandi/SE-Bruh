@@ -39,10 +39,8 @@ class Subject
         );
     }
 
-    void addQuiz(String sessionName)
+    void addQuiz(Quiz quiz)
     {
-        _sessions.add(
-            new Quiz(sessionName)
-        );
+        _sessions.add(quiz);
     }
 }

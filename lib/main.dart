@@ -6,6 +6,9 @@ import 'widget/profile.dart';
 import 'src/user.dart';
 import 'src/subject.dart';
 
+// temporary import
+import 'src/session.dart';
+
 void main()
 {
     // user temporary file
@@ -26,6 +29,30 @@ void main()
     List<Subject> subjects = [];
     subjects.add(new Subject("SU001", "Subject 1"));
     subjects[0].addLearning("Session 1", "Test path", "Lorem ipsum");
+
+    Quiz quiz = new Quiz("Subject - Quiz");
+    quiz.addQuestions(
+        "Question 1", 
+        "Right answer", 
+        ["Wrong answer", "Wrong answer", "Wrong answer", "Right answer"]);
+    quiz.addQuestions(
+        "Question 2", 
+        "Right answer", 
+        ["Wrong answer", "Wrong answer", "Wrong answer", "Right answer"]);
+    quiz.addQuestions(
+        "Question 3", 
+        "Right answer", 
+        ["Wrong answer", "Wrong answer", "Wrong answer", "Right answer"]);
+    quiz.addQuestions(
+        "Question 4", 
+        "Right answer", 
+        ["Wrong answer", "Wrong answer", "Wrong answer", "Right answer"]);
+    quiz.addQuestions(
+        "Question 4", 
+        "Right answer", 
+        ["Wrong answer", "Wrong answer", "Wrong answer", "Right answer"]);
+    subjects[0].addQuiz(quiz);
+
     subjects.add(new Subject("Placeholder", "Placeholder"));
     subjects.add(new Subject("Placeholder", "Placeholder"));
     subjects.add(new Subject("Placeholder", "Placeholder"));

@@ -3,6 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 
 // include other dart file
 import 'subject.dart';
+import 'quiz.dart';
 import '../src/user.dart';
 import '../src/subject.dart';
 import '../src/session.dart';
@@ -91,7 +92,7 @@ class SubjectList extends StatelessWidget
         for(Subject subject in subjects) {
             List<Widget> childs = [];
             for(Session session in subject.getSessions()){
-                childs.add(SubjectButton(session));
+                childs.add(SubjectButton(user, subjects, session));
             }
 
             ExpansionTile temp = new ExpansionTile(
@@ -138,7 +139,10 @@ class SubjectList extends StatelessWidget
 class SubjectButton extends StatelessWidget
 {
     final Session session;
-    SubjectButton(this.session);
+    final User user;
+    final List<Subject> subjects;
+    
+    SubjectButton(this.user, this.subjects, this.session);
     @override
     Widget build(BuildContext context)
     {
@@ -158,6 +162,14 @@ class SubjectButton extends StatelessWidget
                     ),
                     onTap: (){
                         Navigator.pop(context);
+                        if(session is Quiz)
+                        {
+                            Quiz quiz = session as Quiz;
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => QuizBeginPage(user, subjects, quiz))
+                            );
+                        }
                     },
                 )
             ),

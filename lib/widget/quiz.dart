@@ -24,10 +24,88 @@ class QuizBeginPage extends StatelessWidget
                 title: Text("Quiz Page"),
                 backgroundColor: HexColor("#2e3440"),
             ),
-            body: Text(
-                quiz.getSessionName()
+            body: ListView(
+                children: [
+                    Container(
+                        child: Text(
+                            quiz.getSessionName(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 40,
+                                fontFamily: 'Roboto'
+                            ),
+                        ),
+                        padding: EdgeInsets.only(
+                            top: 50,
+                            bottom: 100,
+                        ),
+                    ),
+                    QuizQuestion(quiz.getQuestions()),
+                ],
             ),
-            drawer: NavMenu(user, subjects, "begin quiz page"),
+            drawer: NavMenu(user, subjects),
+        );
+    }
+}
+
+class QuizQuestion extends StatefulWidget 
+{
+    final List<Question> questions;
+    QuizQuestion(this.questions);
+
+    @override
+    State<QuizQuestion> createState() => _QuizQuestion(questions);
+}
+
+class _QuizQuestion extends State<QuizQuestion>
+{
+    final List<Question> questions;
+    _QuizQuestion(this.questions);
+
+    late int idx;
+    late int len;
+
+    @override
+    void initState() 
+    {
+        super.initState();
+        len = questions.length;
+        idx = 0;
+    }
+
+    @override
+    Widget build(BuildContext context) 
+    {
+        List<Widget> child = [];
+
+        child.add(
+            Text(
+                (idx + 1).toString()
+            )
+        );
+
+        Widget temp = new Row(
+            children: [
+                Expanded(
+                    child: Container(
+                        child: TextButton(
+                            child: Text("Prev"),
+                            onPressed: () {
+                                setState(() {
+                                    if(this.idx != 0)
+                                        this.idx--;
+                                });
+                            },
+                        ),
+                    ),
+                ),
+            ],
+        );
+
+        child.add(temp);
+
+        return Column(
+            children: child,
         );
     }
 }

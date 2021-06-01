@@ -4,6 +4,8 @@ import 'package:hexcolor/hexcolor.dart';
 // include other dart file
 import 'subject.dart';
 import 'quiz.dart';
+import 'profile.dart';
+import 'animation.dart';
 import '../src/user.dart';
 import '../src/subject.dart';
 import '../src/session.dart';
@@ -12,8 +14,7 @@ class NavMenu extends StatelessWidget
 {
     final User user;
     final List<Subject> subjects;
-    final String currScreen;
-    NavMenu(this.user, this.subjects, this.currScreen);
+    NavMenu(this.user, this.subjects);
     @override
     Widget build(BuildContext context) 
     {
@@ -25,7 +26,7 @@ class NavMenu extends StatelessWidget
                         bottom: 20,
                     ),
                     children: <Widget> [
-                        ProfileButton(user, currScreen),
+                        ProfileButton(user, subjects),
                         SubjectList(user, subjects),
                     ]
                 ),
@@ -36,9 +37,9 @@ class NavMenu extends StatelessWidget
 
 class ProfileButton extends StatelessWidget
 {
-    final String currScreen;
     final User user;
-    ProfileButton(this.user, this.currScreen);
+    final List<Subject> subjects;
+    ProfileButton(this.user, this.subjects);
     @override
     Widget build(BuildContext context)
     {
@@ -64,9 +65,8 @@ class ProfileButton extends StatelessWidget
                 color: Colors.white.withOpacity(0),
                 child: InkWell(
                     onTap: (){
-                        Navigator.pop(context);
-                        if(currScreen != "profile")
-                            Navigator.pop(context);
+                        // Navigator.pop(context);
+                        Navigator.of(context).push(FadePageroute(Profile(user, subjects)));
                     },
                     child: Icon(
                         Icons.person,
@@ -161,14 +161,11 @@ class SubjectButton extends StatelessWidget
                         ),
                     ),
                     onTap: (){
-                        Navigator.pop(context);
+                        // Navigator.pop(context);
                         if(session is Quiz)
                         {
                             Quiz quiz = session as Quiz;
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => QuizBeginPage(user, subjects, quiz))
-                            );
+                            Navigator.of(context).push(FadePageroute(QuizBeginPage(user, subjects, quiz)));
                         }
                     },
                 )

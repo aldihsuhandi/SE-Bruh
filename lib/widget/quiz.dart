@@ -64,6 +64,7 @@ class _QuizQuestion extends State<QuizQuestion>
 
     late int idx;
     late int len;
+    late List<String> ans;
 
     Color nextButtonColor = HexColor("#d8dee9");
     Color nextTextColor = HexColor("#2e3440");
@@ -77,6 +78,14 @@ class _QuizQuestion extends State<QuizQuestion>
         len = questions.length;
         idx = 0;
         this.changeButtonColor();
+
+        for(int i = 0;i < len;++i)
+            ans.add("");
+    }
+
+    void changeAnsVal(String ansVal, int idx)
+    {
+        ans[idx] = ansVal;
     }
 
     void changeButtonColor()
@@ -102,14 +111,6 @@ class _QuizQuestion extends State<QuizQuestion>
     Widget build(BuildContext context) 
     {
         List<Widget> child = [];
-
-        child.add(
-            Text(
-                (idx + 1).toString()
-            )
-        );
-
-        child.add(new SizedBox(height: 50));
 
         Widget row = new Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -209,6 +210,28 @@ class _QuizQuestion extends State<QuizQuestion>
 
         child.add(
             new Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                padding: EdgeInsets.only(
+                    top: 10,
+                    bottom: 10,
+                    left: 10,
+                    right: 10,
+                ),
+                child: Text(
+                    "Question no." + (idx + 1).toString(),
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14
+                    ),
+                ),
+            )
+        );
+        child.add(questionDisplay(idx));
+
+        child.add(new SizedBox(height: 50));
+
+        child.add(
+            new Container(
                 child: row,
                 margin: EdgeInsets.only(
                     right: 40
@@ -220,21 +243,62 @@ class _QuizQuestion extends State<QuizQuestion>
             children: child,
         );
     }
+
+    Widget questionDisplay(int idx)
+    {
+        List<Widget> child = [];
+
+        Widget questionText = new Text(
+            questions[idx].getQuestion(),
+            textAlign: TextAlign.left,
+            style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+            ),
+        );
+
+        child.add(
+            new Container(
+                padding: EdgeInsets.only(
+                    top: 10,
+                    bottom: 10,
+                    left: 10,
+                    right: 10,
+                ),
+                width: MediaQuery.of(context).size.width * 0.9,
+                decoration: BoxDecoration(
+                    color: HexColor("#d8dee9"),
+                    borderRadius: BorderRadius.circular(5),
+                ),
+                child: questionText
+            )
+        );
+
+        child.add(new SizedBox(height: 25));
+
+        return Column(
+            children: child
+        );
+    }
 }
 
-class QuestionDisplay extends StatelessWidget
+class AnswerRadioButton extends StatefulWidget 
 {
-    final Question question;
-    QuestionDisplay(this.question);
+    final String ansVal;
+    final int idx;
+    AnswerRadioButton(this.idx, this.ansVal);
+    State<AnswerRadioButton> createState() => _AnswerRadioButton(idx, ansVal);
+}
+
+class _AnswerRadioButton extends State<AnswerRadioButton>
+{
+    final String ansVal;
+    final int idx;
+    _AnswerRadioButton(this.idx, this.ansVal);
 
     @override
     Widget build(BuildContext context) 
     {
-        List<Widget> child = [];
-        return Container(
-            child: Column(
-                children: child,
-            )
-        );
     }
 }

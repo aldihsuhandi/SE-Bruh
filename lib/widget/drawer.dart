@@ -152,7 +152,7 @@ class SubjectButton extends StatelessWidget
                 color: HexColor("#434c5e"),
                 child: InkWell(
                     child: Center(
-                            child: Text(
+                        child: Text(
                             session.getSessionName(),
                             style: TextStyle(
                                 fontSize: 15,

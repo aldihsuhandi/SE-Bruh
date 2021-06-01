@@ -65,12 +65,37 @@ class _QuizQuestion extends State<QuizQuestion>
     late int idx;
     late int len;
 
+    Color nextButtonColor = HexColor("#d8dee9");
+    Color nextTextColor = HexColor("#2e3440");
+    Color prevButtonColor = HexColor("#d8dee9");
+    Color prevTextColor = HexColor("#2e3440");
+
     @override
     void initState() 
     {
         super.initState();
         len = questions.length;
         idx = 0;
+        this.changeButtonColor();
+    }
+
+    void changeButtonColor()
+    {
+        if(idx == 0)
+        {
+            this.prevTextColor = HexColor("#6e7c99");
+            this.nextTextColor = HexColor("#2e3440");
+        }
+        else if(idx == len - 1)
+        {
+            this.prevTextColor = HexColor("#2e3440");
+            this.nextTextColor = HexColor("#6e7c99");
+        }
+        else
+        {
+            this.prevTextColor = HexColor("#2e3440");
+            this.nextTextColor = HexColor("#2e3440");
+        }
     }
 
     @override
@@ -84,28 +109,132 @@ class _QuizQuestion extends State<QuizQuestion>
             )
         );
 
-        Widget temp = new Row(
+        child.add(new SizedBox(height: 50));
+
+        Widget row = new Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-                Expanded(
+                TextButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(prevButtonColor),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                side: BorderSide(color: prevTextColor),
+                            )
+                        )
+                    ),
                     child: Container(
-                        child: TextButton(
-                            child: Text("Prev"),
-                            onPressed: () {
-                                setState(() {
-                                    if(this.idx != 0)
-                                        this.idx--;
-                                });
-                            },
+                        padding: EdgeInsets.all(5),
+                        child: Text(
+                            "Previous",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 20,
+                                color: prevTextColor,
+                            ),
                         ),
                     ),
+                    onPressed:() {
+                        setState(() {
+                            if(this.idx != 0)
+                                this.idx--;
+                            this.changeButtonColor();
+                        });
+                    },
+                ),
+                SizedBox(
+                    width: 25,
+                ),
+                TextButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(HexColor("#d8dee9")),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                side: BorderSide(color: HexColor("#2e3440")),
+                            )
+                        )
+                    ),
+                    child: Container(
+                        padding: EdgeInsets.all(5),
+                        child: Text(
+                            "Submit",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 20,
+                                color: HexColor("#2e3440")
+                            ),
+                        ),
+                    ),
+                    onPressed: (){},
+                ),
+                SizedBox(
+                    width: 25,
+                ),
+                TextButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(nextButtonColor),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                side: BorderSide(color: nextTextColor),
+                            )
+                        )
+                    ),
+                    child: Container(
+                        padding: EdgeInsets.all(5),
+                        child: Text(
+                            "Next",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 20,
+                                color: nextTextColor,
+                            ),
+                        ),
+                    ),
+                    onPressed:() {
+                        setState(() {
+                            if(this.idx != len - 1)
+                                this.idx++;
+                            this.changeButtonColor();
+                        });
+                    },
                 ),
             ],
         );
 
-        child.add(temp);
+        child.add(
+            new Container(
+                child: row,
+                margin: EdgeInsets.only(
+                    right: 40
+                ),
+            ),
+        );
 
         return Column(
             children: child,
+        );
+    }
+}
+
+class QuestionDisplay extends StatelessWidget
+{
+    final Question question;
+    QuestionDisplay(this.question);
+
+    @override
+    Widget build(BuildContext context) 
+    {
+        List<Widget> child = [];
+        return Container(
+            child: Column(
+                children: child,
+            )
         );
     }
 }

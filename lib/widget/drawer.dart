@@ -3,27 +3,30 @@ import 'package:hexcolor/hexcolor.dart';
 
 // include other dart file
 import 'subject.dart';
+import 'quiz.dart';
+import 'profile.dart';
+import 'animation.dart';
 import '../src/user.dart';
 import '../src/subject.dart';
+import '../src/session.dart';
 
 class NavMenu extends StatelessWidget 
 {
     final User user;
     final List<Subject> subjects;
-    final String currScreen;
-    NavMenu(this.user, this.subjects, this.currScreen);
+    NavMenu(this.user, this.subjects);
     @override
     Widget build(BuildContext context) 
     {
         return Container(
-            width: 220,
+            width: 250,
             child: Drawer(
                 child: ListView(
                     padding: EdgeInsets.only(
                         bottom: 20,
                     ),
                     children: <Widget> [
-                        ProfileButton(user, currScreen),
+                        ProfileButton(user, subjects),
                         SubjectList(user, subjects),
                     ]
                 ),
@@ -34,14 +37,14 @@ class NavMenu extends StatelessWidget
 
 class ProfileButton extends StatelessWidget
 {
-    final String currScreen;
     final User user;
-    ProfileButton(this.user, this.currScreen);
+    final List<Subject> subjects;
+    ProfileButton(this.user, this.subjects);
     @override
     Widget build(BuildContext context)
     {
         return Container(
-            height: 180,
+            height: 200,
             margin: EdgeInsets.all(10),
             decoration: BoxDecoration(
                 color: HexColor("#2e3440"),
@@ -62,13 +65,8 @@ class ProfileButton extends StatelessWidget
                 color: Colors.white.withOpacity(0),
                 child: InkWell(
                     onTap: (){
-                        Navigator.pop(context);
-                        if(currScreen != "profile")
-                            Navigator.pop(context);
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(builder: (context) => Profile(user)),
-                        // );
+                        // Navigator.pop(context);
+                        Navigator.of(context).push(FadePageroute(Profile(user, subjects)));
                     },
                     child: Icon(
                         Icons.person,
@@ -92,14 +90,23 @@ class SubjectList extends StatelessWidget
         List<Widget> subjectTile = [];
 
         for(Subject subject in subjects) {
+            List<Widget> childs = [];
+            for(Session session in subject.getSessions()){
+                childs.add(SubjectButton(user, subjects, session));
+            }
+
             ExpansionTile temp = new ExpansionTile(
-                title: Text(
-                    subject.getSubjectName(),
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: HexColor("#eceff4")
+                title: Center(
+                    child: Text(
+                        subject.getSubjectCode() + ' - ' + subject.getSubjectName(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: HexColor("#eceff4"),
+                        ),
                     ),
                 ),
+                children: childs,
             );
 
             subjectTile.add(temp);
@@ -124,6 +131,44 @@ class SubjectList extends StatelessWidget
             ),
             child: Column(
                 children: subjectTile
+            ),
+        );
+    }
+}
+
+class SubjectButton extends StatelessWidget
+{
+    final Session session;
+    final User user;
+    final List<Subject> subjects;
+    
+    SubjectButton(this.user, this.subjects, this.session);
+    @override
+    Widget build(BuildContext context)
+    {
+        return Container(
+            height: 35,
+            child: Material(
+                color: HexColor("#434c5e"),
+                child: InkWell(
+                    child: Center(
+                        child: Text(
+                            session.getSessionName(),
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: HexColor("#eceff4")
+                            )
+                        ),
+                    ),
+                    onTap: (){
+                        // Navigator.pop(context);
+                        if(session is Quiz)
+                        {
+                            Quiz quiz = session as Quiz;
+                            Navigator.of(context).push(FadePageroute(QuizBeginPage(user, subjects, quiz)));
+                        }
+                    },
+                )
             ),
         );
     }

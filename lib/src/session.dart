@@ -46,6 +46,7 @@ class Learning extends Session
 class Quiz extends Session
 {
     List<Question> _questions = [];
+    bool _isDone = false;
     Quiz(String sessionName) : super(sessionName);
 
     List<Question> getQuestions()
@@ -56,5 +57,15 @@ class Quiz extends Session
     void addQuestions(String q, String a, List<String> o)
     {
         _questions.add(new Question(q, a, o));
+    }
+
+    void setIsDone(bool isDone) 
+    {
+        _isDone = isDone;
+    }
+
+    bool getIsDone()
+    {
+        return _isDone;
     }
 }

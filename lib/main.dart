@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 // import other file
 import 'widget/profile.dart';
 import 'src/user.dart';
 import 'src/subject.dart';
+
+// temporary import
+import 'src/session.dart';
 
 void main()
 {
@@ -24,9 +28,46 @@ void main()
     // subject temporary file
     List<Subject> subjects = [];
     subjects.add(new Subject("SU001", "Subject 1"));
-    subjects.add(new Subject("SU002", "Subject 2"));
-    subjects.add(new Subject("SU003", "Subject 3"));
-    subjects.add(new Subject("SU004", "Subject 4"));
+    subjects[0].addLearning("Session 1", "Test path", "Lorem ipsum");
 
-    runApp(MaterialApp(home: Profile(user, subjects)));
+    Quiz quiz = new Quiz("Subject - Quiz");
+    quiz.addQuestions(
+        "Question 1", 
+        "Right answer", 
+        ["Wrong answer", "Wrong answer", "Wrong answer", "Right answer"]);
+    quiz.addQuestions(
+        "Question 2", 
+        "Right answer", 
+        ["Wrong answer", "Wrong answer", "Wrong answer", "Right answer"]);
+    quiz.addQuestions(
+        "Question 3", 
+        "Right answer", 
+        ["Wrong answer", "Wrong answer", "Wrong answer", "Right answer"]);
+    quiz.addQuestions(
+        "Question 4", 
+        "Right answer", 
+        ["Wrong answer", "Wrong answer", "Wrong answer", "Right answer"]);
+    quiz.addQuestions(
+        "Question 5", 
+        "Right answer", 
+        ["Wrong answer", "Wrong answer", "Wrong answer", "Right answer"]);
+    quiz.addQuestions(
+        "Question 6", 
+        "Right answer", 
+        ["Wrong answer", "Right answer"]);
+    subjects[0].addQuiz(quiz);
+
+    subjects.add(new Subject("Placeholder", "Placeholder"));
+    subjects.add(new Subject("Placeholder", "Placeholder"));
+    subjects.add(new Subject("Placeholder", "Placeholder"));
+
+    runApp(
+        MaterialApp(
+            theme: ThemeData(
+                fontFamily: "Roboto",
+                canvasColor: HexColor("#eceff4"),
+            ),
+            home: Profile(user, subjects)
+        )
+    );
 }

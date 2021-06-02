@@ -64,7 +64,7 @@ class _QuizQuestion extends State<QuizQuestion>
 
     late int idx;
     late int len;
-    late List<String> ans;
+    late List<Option> ans;
 
     Color nextButtonColor = HexColor("#d8dee9");
     Color nextTextColor = HexColor("#2e3440");
@@ -79,13 +79,7 @@ class _QuizQuestion extends State<QuizQuestion>
         idx = 0;
         this.changeButtonColor();
 
-        for(int i = 0;i < len;++i)
-            ans.add("");
-    }
-
-    void changeAnsVal(String ansVal, int idx)
-    {
-        ans[idx] = ansVal;
+        ans = List<Option>.filled(len, new Option(0, ""));
     }
 
     void changeButtonColor()
@@ -239,6 +233,7 @@ class _QuizQuestion extends State<QuizQuestion>
             ),
         );
 
+
         return Column(
             children: child,
         );
@@ -277,28 +272,62 @@ class _QuizQuestion extends State<QuizQuestion>
 
         child.add(new SizedBox(height: 25));
 
+        child.add(
+            new Container(
+                padding: EdgeInsets.only(
+                    top: 10,
+                    bottom: 10,
+                    left: 10,
+                    right: 10,
+                ),
+                width: MediaQuery.of(context).size.width * 0.9,
+                decoration: BoxDecoration(
+                    color: HexColor("#d8dee9"),
+                    borderRadius: BorderRadius.circular(5),
+                ),
+                child: questionRadioButton(idx)
+            )
+        );
+
         return Column(
             children: child
         );
     }
-}
 
-class AnswerRadioButton extends StatefulWidget 
-{
-    final String ansVal;
-    final int idx;
-    AnswerRadioButton(this.idx, this.ansVal);
-    State<AnswerRadioButton> createState() => _AnswerRadioButton(idx, ansVal);
-}
-
-class _AnswerRadioButton extends State<AnswerRadioButton>
-{
-    final String ansVal;
-    final int idx;
-    _AnswerRadioButton(this.idx, this.ansVal);
-
-    @override
-    Widget build(BuildContext context) 
+    Widget questionRadioButton(int idx)
     {
+        List<Widget> child = [];
+        List<String> t = questions[idx].getOptions();
+        List<Option> options = [];
+
+        int len = t.length;
+
+        for(int i = 0;i < len;++i){
+            options.add(new Option(i + 1, t[i]));
+        }
+
+        child = options.map(
+            (e) => RadioListTile(
+                title: Text(e.opt),
+                groupValue: ans[idx].indx,
+                value: e.indx,
+                onChanged: (val) {
+                    setState(() {
+                        ans[idx] = e;
+                    });
+                },
+            )
+        ).toList();
+
+        return Column(
+            children: child,
+        );
     }
+}
+
+class Option
+{
+    int indx;
+    String opt;
+    Option(this.indx, this.opt);
 }

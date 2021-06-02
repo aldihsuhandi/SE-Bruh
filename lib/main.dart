@@ -51,6 +51,10 @@ void main()
         "Question 5", 
         "Right answer", 
         ["Wrong answer", "Wrong answer", "Wrong answer", "Right answer"]);
+    quiz.addQuestions(
+        "Question 6", 
+        "Right answer", 
+        ["Wrong answer", "Right answer"]);
     subjects[0].addQuiz(quiz);
 
     subjects.add(new Subject("Placeholder", "Placeholder"));

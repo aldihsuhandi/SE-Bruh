@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 // import other file
-import 'drawer.dart';
-import 'scorecharts.dart';
-import '../src/user.dart';
-import '../src/subject.dart';
+import 'package:myapp/widget/drawer.dart';
+import 'package:myapp/widget/scorecharts.dart';
+import 'package:myapp/src/user.dart';
+import 'package:myapp/src/subject.dart';
 
 class Profile extends StatelessWidget 
 {

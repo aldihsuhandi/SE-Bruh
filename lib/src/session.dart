@@ -1,4 +1,4 @@
-import 'question.dart';
+import 'package:myapp/src/question.dart';
 
 class Session
 {

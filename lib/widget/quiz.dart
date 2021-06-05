@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 //import other dart file
-import '../src/question.dart';
-import '../src/session.dart';
-import '../src/user.dart';
-import '../src/subject.dart';
-import 'drawer.dart';
+import 'package:myapp/src/question.dart';
+import 'package:myapp/src/session.dart';
+import 'package:myapp/src/user.dart';
+import 'package:myapp/src/subject.dart';
+import 'package:myapp/widget/drawer.dart';
+import 'package:myapp/widget/progressbar.dart';
+import 'package:myapp/widget/answer.dart';
 
 class QuizBeginPage extends StatelessWidget
 {
@@ -106,6 +108,8 @@ class _QuizQuestion extends State<QuizQuestion>
     {
         List<Widget> child = [];
 
+        Widget progressbar = QuizProgressBar(idx + 1, len);
+
         Widget row = new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -202,6 +206,7 @@ class _QuizQuestion extends State<QuizQuestion>
             ],
         );
 
+
         child.add(
             new Container(
                 width: MediaQuery.of(context).size.width * 0.9,
@@ -220,9 +225,14 @@ class _QuizQuestion extends State<QuizQuestion>
                 ),
             )
         );
+        
         child.add(questionDisplay(idx));
 
         child.add(new SizedBox(height: 50));
+
+        child.add(progressbar);
+
+        child.add(new SizedBox(height: 10));
 
         child.add(
             new Container(

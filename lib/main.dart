@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 // import other file
-import 'widget/profile.dart';
-import 'src/user.dart';
-import 'src/subject.dart';
+import 'package:myapp/widget/profile.dart';
+import 'package:myapp/src/user.dart';
+import 'package:myapp/src/subject.dart';
 
 // temporary import
-import 'src/session.dart';
+import 'package:myapp/src/session.dart';
 
 void main()
 {

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 // include other dart file
-import 'subject.dart';
-import 'quiz.dart';
-import 'profile.dart';
-import 'animation.dart';
-import '../src/user.dart';
-import '../src/subject.dart';
-import '../src/session.dart';
+import 'package:myapp/widget/subject.dart';
+import 'package:myapp/widget/quiz.dart';
+import 'package:myapp/widget/profile.dart';
+import 'package:myapp/widget/animation.dart';
+import 'package:myapp/src/user.dart';
+import 'package:myapp/src/subject.dart';
+import 'package:myapp/src/session.dart';
 
 class NavMenu extends StatelessWidget 
 {

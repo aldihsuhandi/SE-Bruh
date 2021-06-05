@@ -3,8 +3,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 // import other dart fike
-import '../src/user.dart';
-import '../src/score.dart';
+import 'package:myapp/src/user.dart';
+import 'package:myapp/src/score.dart';
 
 class GradeGraph extends StatelessWidget
 {

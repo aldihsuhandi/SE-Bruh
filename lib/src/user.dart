@@ -1,5 +1,4 @@
-// importing other source file
-import 'score.dart';
+import 'package:myapp/src/score.dart';
 
 class User
 {

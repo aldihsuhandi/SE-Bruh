@@ -18,7 +18,7 @@ class QuizBeginPage extends StatelessWidget
     QuizBeginPage(this.user, this.subjects, this.quiz);
 
     @override
-    Widget build(BuildContext context) 
+    Widget build(BuildContext context)
     {
         return Scaffold(
             backgroundColor: HexColor("#eceff4"),
@@ -42,7 +42,7 @@ class QuizBeginPage extends StatelessWidget
                             bottom: 100,
                         ),
                     ),
-                    QuizQuestion(quiz.getQuestions()),
+                    QuizQuestion(user, subjects, quiz),
                 ],
             ),
             drawer: NavMenu(user, subjects),
@@ -50,19 +50,24 @@ class QuizBeginPage extends StatelessWidget
     }
 }
 
-class QuizQuestion extends StatefulWidget 
+class QuizQuestion extends StatefulWidget
 {
-    final List<Question> questions;
-    QuizQuestion(this.questions);
+    final User user;
+    final List<Subject> subjects;
+    final Quiz quiz;
+    QuizQuestion(this.user, this.subjects, this.quiz);
 
     @override
-    State<QuizQuestion> createState() => _QuizQuestion(questions);
+    State<QuizQuestion> createState() => _QuizQuestion(user, subjects, quiz);
 }
 
 class _QuizQuestion extends State<QuizQuestion>
 {
-    final List<Question> questions;
-    _QuizQuestion(this.questions);
+    final User user;
+    final Quiz quiz;
+    final List<Subject> subjects;
+    late List<Question> questions;
+    _QuizQuestion(this.user, this.subjects, this.quiz);
 
     late int idx;
     late int len;
@@ -74,9 +79,10 @@ class _QuizQuestion extends State<QuizQuestion>
     Color prevTextColor = HexColor("#2e3440");
 
     @override
-    void initState() 
+    void initState()
     {
         super.initState();
+        questions = quiz.getQuestions();
         len = questions.length;
         idx = 0;
         this.changeButtonColor();
@@ -104,7 +110,7 @@ class _QuizQuestion extends State<QuizQuestion>
     }
 
     @override
-    Widget build(BuildContext context) 
+    Widget build(BuildContext context)
     {
         List<Widget> child = [];
 
@@ -168,7 +174,12 @@ class _QuizQuestion extends State<QuizQuestion>
                             ),
                         ),
                     ),
-                    onPressed: (){},
+                    onPressed: (){
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AnswerDialog(user, subjects, ans, quiz),
+                        );
+                    },
                 ),
                 SizedBox(
                     width: 25,
@@ -225,7 +236,7 @@ class _QuizQuestion extends State<QuizQuestion>
                 ),
             )
         );
-        
+
         child.add(questionDisplay(idx));
 
         child.add(new SizedBox(height: 50));
@@ -307,14 +318,14 @@ class _QuizQuestion extends State<QuizQuestion>
     Widget questionRadioButton(int idx)
     {
         List<Widget> child = [];
-        List<String> t = questions[idx].getOptions();
-        List<Option> options = [];
+        // List<Option> t = questions[idx].getOptions();
+        List<Option> options = questions[idx].getOptions();
 
-        int len = t.length;
+        // int len = options.length;
 
-        for(int i = 0;i < len;++i){
-            options.add(new Option(i + 1, t[i]));
-        }
+        // for(int i = 0;i < len;++i){
+        //     options.add(new Option(i + 1, t[i]));
+        // }
 
         child = options.map(
             (e) => RadioListTile(
@@ -333,11 +344,4 @@ class _QuizQuestion extends State<QuizQuestion>
             children: child,
         );
     }
-}
-
-class Option
-{
-    int indx;
-    String opt;
-    Option(this.indx, this.opt);
 }

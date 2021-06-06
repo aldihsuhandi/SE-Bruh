@@ -32,28 +32,28 @@ void main()
 
     Quiz quiz = new Quiz("Subject - Quiz");
     quiz.addQuestions(
-        "Question 1", 
-        "Right answer", 
+        "Question 1",
+        "Right answer",
         ["Wrong answer", "Wrong answer", "Wrong answer", "Right answer"]);
     quiz.addQuestions(
-        "Question 2", 
-        "Right answer", 
+        "Question 2",
+        "Right answer",
         ["Wrong answer", "Wrong answer", "Wrong answer", "Right answer"]);
     quiz.addQuestions(
-        "Question 3", 
-        "Right answer", 
+        "Question 3",
+        "Right answer",
         ["Wrong answer", "Wrong answer", "Wrong answer", "Right answer"]);
     quiz.addQuestions(
-        "Question 4", 
-        "Right answer", 
+        "Question 4",
+        "Right answer",
         ["Wrong answer", "Wrong answer", "Wrong answer", "Right answer"]);
     quiz.addQuestions(
-        "Question 5", 
-        "Right answer", 
+        "Question 5",
+        "Right answer",
         ["Wrong answer", "Wrong answer", "Wrong answer", "Right answer"]);
     quiz.addQuestions(
-        "Question 6", 
-        "Right answer", 
+        "Question 6",
+        "Right answer",
         ["Wrong answer", "Right answer"]);
     subjects[0].addQuiz(quiz);
 

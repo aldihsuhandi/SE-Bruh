@@ -1,4 +1,4 @@
-import 'session.dart';
+import 'package:myapp/src/session.dart';
 
 class Subject
 {

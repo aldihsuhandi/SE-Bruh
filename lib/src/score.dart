@@ -1,16 +1,16 @@
 class Score
 {
     String _subjectName = "";
-    List<int> _scoreList = [];
+    List<double> _scoreList = [];
 
     Score(this._subjectName);
 
-    void addScore(int sc)
+    void addScore(double sc)
     {
         _scoreList.add(sc);
     }
 
-    List<int> getScoreList()
+    List<double> getScoreList()
     {
         return _scoreList;
     }

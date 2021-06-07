@@ -3,8 +3,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 // import other dart fike
-import '../src/user.dart';
-import '../src/score.dart';
+import 'package:myapp/src/user.dart';
+import 'package:myapp/src/score.dart';
 
 class GradeGraph extends StatelessWidget
 {
@@ -38,8 +38,8 @@ class GradeGraph extends StatelessWidget
 
         for(int i = 0;i < len;++i) {
             int x = i;
-            int y = sc.getScoreList()[i];
-            data.add(new FlSpot(x.toDouble(), y.toDouble()));
+            double y = sc.getScoreList()[i];
+            data.add(new FlSpot(x.toDouble(), y));
         }
 
         return Container(
@@ -80,7 +80,7 @@ class GradeGraph extends StatelessWidget
                                     fontSize: 10,
                                 ),
                                 getTitles: (value) {
-                                    switch(value.toInt()) 
+                                    switch(value.toInt())
                                     {
                                         case 0:
                                             return '0';

@@ -1,5 +1,4 @@
-// importing other source file
-import 'score.dart';
+import 'package:myapp/src/score.dart';
 
 class User
 {
@@ -29,7 +28,7 @@ class User
         return _nis;
     }
 
-    void addScore(String subjectName, int sc)
+    void addScore(String subjectName, double sc)
     {
         int len = scores.length;
         for(int i = 0;i < len;++i){

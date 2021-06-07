@@ -28,7 +28,7 @@ class User
         return _nis;
     }
 
-    void addScore(String subjectName, int sc)
+    void addScore(String subjectName, double sc)
     {
         int len = scores.length;
         for(int i = 0;i < len;++i){

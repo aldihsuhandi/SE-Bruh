@@ -10,13 +10,13 @@ import 'package:myapp/src/user.dart';
 import 'package:myapp/src/subject.dart';
 import 'package:myapp/src/session.dart';
 
-class NavMenu extends StatelessWidget 
+class NavMenu extends StatelessWidget
 {
     final User user;
     final List<Subject> subjects;
     NavMenu(this.user, this.subjects);
     @override
-    Widget build(BuildContext context) 
+    Widget build(BuildContext context)
     {
         return Container(
             width: 250,
@@ -141,7 +141,7 @@ class SubjectButton extends StatelessWidget
     final Session session;
     final User user;
     final List<Subject> subjects;
-    
+
     SubjectButton(this.user, this.subjects, this.session);
     @override
     Widget build(BuildContext context)
@@ -165,11 +165,54 @@ class SubjectButton extends StatelessWidget
                         if(session is Quiz)
                         {
                             Quiz quiz = session as Quiz;
-                            Navigator.of(context).push(FadePageroute(QuizBeginPage(user, subjects, quiz)));
+                            if(quiz.getIsDone() == false)
+                            {
+                                Navigator.of(context).push(FadePageroute(QuizBeginPage(user, subjects, quiz)));
+                            }
+                            else
+                            {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) => QuestionDialog(),
+                                );
+                            }
                         }
                     },
                 )
             ),
+        );
+    }
+}
+
+class QuestionDialog extends StatelessWidget
+{
+    @override
+    Widget build(BuildContext context)
+    {
+        return AlertDialog(
+            title: const Text(
+                "You've done this quiz before!",
+                style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 15
+                ),
+            ),
+            actions: <Widget>[
+                TextButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(HexColor("#5e81ac")),
+                    ),
+                    onPressed: () {
+                        Navigator.pop(context, 'OK');
+                    },
+                    child: Text(
+                        'Ok',
+                        style: TextStyle(
+                            color: HexColor("#eceff4")
+                        ),
+                    ),
+                ),
+            ],
         );
     }
 }

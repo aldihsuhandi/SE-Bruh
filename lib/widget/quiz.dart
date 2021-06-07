@@ -20,6 +20,7 @@ class QuizBeginPage extends StatelessWidget
     @override
     Widget build(BuildContext context)
     {
+        print(quiz.getIsDone());
         return Scaffold(
             backgroundColor: HexColor("#eceff4"),
             appBar: AppBar(

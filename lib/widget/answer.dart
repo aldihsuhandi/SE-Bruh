@@ -73,56 +73,83 @@ class AnswerPage extends StatelessWidget
     Widget correctAnswer(bool correct, int idx, List<Question> questions)
     {
         Color bg = correct == true ? HexColor("#a3be8c") : HexColor("#BF616A");
+
         return Container(
-            margin: EdgeInsets.only(
-                bottom: 20
-            ),
             decoration: BoxDecoration(
-                color: bg,
                 borderRadius: BorderRadius.circular(15),
+                color: bg,
             ),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            margin: EdgeInsets.only(
+                top: 5,
+                bottom: 5,
+            ),
+            child: ExpansionTile(
+                title: Center(
+                    child: Text(
+                        questions[idx].getQuestion(),
+                        style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
+                        )
+                    )
+                ),
                 children: [
                     Container(
-                        padding: EdgeInsets.all(10),
+                        alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.only(
+                            top: 10,
+                            bottom: 10,
+                            left: 20,
+                            right: 20,
+                        ),
+                        decoration: BoxDecoration(
+                            color: HexColor("#e5e9f0"),
+                        ),
                         child: Text(
-                            (idx + 1).toString() + ". " + questions[idx].getQuestion(),
+                            "Your answer: " + answer[idx].opt,
+                            textAlign: TextAlign.justify,
                             style: TextStyle(
                                 color: HexColor("#2e3440"),
                                 fontFamily: 'Roboto',
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500
+                                fontSize: 15,
                             )
-                        ),
+                        )
                     ),
                     Container(
-                        padding: EdgeInsets.all(10),
+                        alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.only(
+                            top: 10,
+                            bottom: 10,
+                            left: 20,
+                            right: 20,
+                        ),
                         decoration: BoxDecoration(
-                            color: HexColor("#D8DEE9"),
+                            color: HexColor("#e5e9f0"),
                             borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(15),
-                                bottomRight: Radius.circular(15),
+                                bottomRight: Radius.circular(15)
+                            ),
+                        ),
+                        child: Text(
+                            "Correct answer: " + questions[idx].getAnswer(),
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(
+                                color: HexColor("#2e3440"),
+                                fontFamily: 'Roboto',
+                                fontSize: 15,
                             )
-                        ),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                                Text(
-                                    "Correct answer: " + questions[idx].getAnswer()
-                                ),
-                                SizedBox(
-                                    height: 10
-                                ),
-                                Text(
-                                    "Your answer: " + answer[idx].opt
-                                ),
-                            ],
-                        ),
-                    )
-                ],
+                        )
+                    ),
+                ]
             ),
         );
+    }
+
+    void addScore(List<String> session, double score)
+    {
+        quiz.setIsDone(true);
+        user.addScore(session[0], score);
     }
 
     @override
@@ -145,16 +172,14 @@ class AnswerPage extends StatelessWidget
             }
         }
 
-        print(score);
-        print(total);
-
         score = score / total * 100;
+
+        addScore(session, score);
 
         List<Widget> child = [];
 
         child.add(
             new Container(
-                // alignment: Alignment.center,
                 child: Text(
                     session[0],
                     style: TextStyle(

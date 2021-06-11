@@ -19,9 +19,9 @@ class Session
 class Learning extends Session
 {
     String _videosPath;
-    String _text;
-    Learning(String sessionName, this._videosPath, this._text) : super(sessionName);
-    
+    String _textPath;
+    Learning(String sessionName, this._videosPath, this._textPath) : super(sessionName);
+
     void setVideosPath(String videosPath)
     {
         _videosPath = videosPath;
@@ -32,14 +32,14 @@ class Learning extends Session
         return _videosPath;
     }
 
-    void setText(String text)
+    void setTextPath(String textPath)
     {
-        _text = text;
+        _textPath = textPath;
     }
 
-    String getText()
+    String getTextPath()
     {
-        return _text;
+        return _textPath;
     }
 }
 
@@ -59,7 +59,7 @@ class Quiz extends Session
         _questions.add(new Question(q, a, o));
     }
 
-    void setIsDone(bool isDone) 
+    void setIsDone(bool isDone)
     {
         _isDone = isDone;
     }

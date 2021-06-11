@@ -165,22 +165,27 @@ class SubjectButton extends StatelessWidget
                         if(session is Quiz)
                         {
                             Quiz quiz = session as Quiz;
-                            if(quiz.getIsDone() == false)
-                            {
-                                Navigator.of(context).push(FadePageroute(QuizBeginPage(user, subjects, quiz)));
-                            }
-                            else
-                            {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) => QuestionDialog(),
-                                );
-                            }
+                            quizPage(context, user, subjects, quiz);
                         }
                     },
                 )
             ),
         );
+    }
+
+    void quizPage(BuildContext context, User user, List<Subject> subjects, Quiz quiz)
+    {
+        if(quiz.getIsDone() == false)
+        {
+            Navigator.of(context).push(FadePageroute(QuizBeginPage(user, subjects, quiz)));
+        }
+        else
+        {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) => QuestionDialog(),
+            );
+        }
     }
 }
 

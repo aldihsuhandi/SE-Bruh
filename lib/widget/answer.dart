@@ -7,6 +7,7 @@ import 'package:myapp/src/session.dart';
 import 'package:myapp/src/question.dart';
 import 'package:myapp/widget/drawer.dart';
 import 'package:myapp/widget/animation.dart';
+import 'package:myapp/widget/profile.dart';
 
 class AnswerDialog extends StatelessWidget
 {
@@ -178,7 +179,9 @@ class AnswerPage extends StatelessWidget
 
         List<Widget> child = [];
 
-        child.add(
+        List<Widget> container = [];
+
+        container.add(
             new Container(
                 child: Text(
                     session[0],
@@ -192,7 +195,7 @@ class AnswerPage extends StatelessWidget
             ),
         );
 
-        child.add(
+        container.add(
             new Container(
                 padding: EdgeInsets.only(
                     bottom: 30,
@@ -209,7 +212,7 @@ class AnswerPage extends StatelessWidget
             )
         );
 
-        child.add(
+        container.add(
             new Container(
                 padding: EdgeInsets.only(
                     bottom: 20,
@@ -225,10 +228,79 @@ class AnswerPage extends StatelessWidget
             )
         );
 
+        child.add(new Container(
+            child: Row(
+                children: <Widget>[
+                    Expanded(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: container,
+                        ),
+                    ),
+                ],
+            )
+        ));
+
         for(int i = 0;i < answer.length;++i){
             String correctAns = questions[i].getAnswer();
             child.add(correctAnswer(correctAns == answer[i].opt, i, questions));
         }
+
+        child.add(
+            new SizedBox(
+                height: 25,
+            )
+        );
+
+        child.add(
+            new Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                    Container(
+                        padding: EdgeInsets.only(
+                            right: 20,
+                            bottom: 25,
+                        ),
+                        child: TextButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all<Color>(HexColor("#4c566a")),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                                    ),
+                                )
+                            ),
+                            child: Container(
+                                padding: EdgeInsets.all(15),
+                                child: Text(
+                                    "Back" + '\n' + "to Profile",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: HexColor("#eceff4"),
+                                    ),
+                                ),
+                            ),
+                            onPressed: (){
+                                Navigator.of(context).push(FadePageroute(Profile(user, subjects)));
+                            },
+                        ),
+                    ),
+                ]
+            ),
+        );
+
+        // child.add(
+        //     new Container(
+        //         child: Center(
+        //             child: TextButton(
+        //                 child: Text("Back To Profile"),
+        //                 onPressed: (){
+        //                     // Navigator.of(context).push(FadePageroute(Profile(user, subjects)));
+        //                 },
+        //             ),
+        //         )
+        //     )
+        // );
 
         Widget answerpage = Scaffold(
             backgroundColor: HexColor("#eceff4"),

@@ -5,11 +5,12 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:myapp/widget/profile.dart';
 import 'package:myapp/src/user.dart';
 import 'package:myapp/src/subject.dart';
+import 'package:myapp/src/readfile.dart';
 
 // temporary import
 import 'package:myapp/src/session.dart';
 
-void main()
+void main() async
 {
     // user temporary file
     User user = new User("Aldih suhandi", "2301862632");

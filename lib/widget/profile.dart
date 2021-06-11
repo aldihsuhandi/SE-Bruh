@@ -7,13 +7,13 @@ import 'package:myapp/widget/scorecharts.dart';
 import 'package:myapp/src/user.dart';
 import 'package:myapp/src/subject.dart';
 
-class Profile extends StatelessWidget 
+class Profile extends StatelessWidget
 {
     final User user;
     final List<Subject> subjects;
     Profile(this.user, this.subjects);
     @override
-    Widget build(BuildContext context) 
+    Widget build(BuildContext context)
     {
         return Scaffold(
             backgroundColor: HexColor("#eceff4"),
@@ -66,13 +66,14 @@ class Profile extends StatelessWidget
                     SizedBox(height: 20),
                     Container(
                         margin: EdgeInsets.only(
+                            top: 20,
                             left: 20,
                             right: 20
                         ),
                         child: Text(
                             "Grade",
                             style: TextStyle(
-                                fontWeight: FontWeight.w800, 
+                                fontWeight: FontWeight.w800,
                                 fontFamily: 'Roboto',
                                 fontSize: 20,
                                 color: HexColor("#2e3440"),
@@ -94,7 +95,7 @@ class Profile extends StatelessWidget
     }
 }
 
-class GradeComboBox extends StatefulWidget 
+class GradeComboBox extends StatefulWidget
 {
     final User user;
     GradeComboBox(this.user);
@@ -104,7 +105,7 @@ class GradeComboBox extends StatefulWidget
     State<GradeComboBox> createState() => _GradeComboBox(user);
 }
 
-class _GradeComboBox extends State<GradeComboBox> 
+class _GradeComboBox extends State<GradeComboBox>
 {
     final User user;
     _GradeComboBox(this.user);
@@ -112,7 +113,7 @@ class _GradeComboBox extends State<GradeComboBox>
     List<String> subjectList = [];
 
     @override
-    void initState() 
+    void initState()
     {
         super.initState();
         subjectList = user.getAllSubjectName();
@@ -127,7 +128,7 @@ class _GradeComboBox extends State<GradeComboBox>
     }
 
     @override
-    Widget build(BuildContext context) 
+    Widget build(BuildContext context)
     {
         return SingleChildScrollView(
             child: Column(
